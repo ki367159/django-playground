@@ -15,22 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.http import HttpResponse
-from django.shortcuts import render
-
-def hello(request):
-    return HttpResponse('Helli World!')
-
-def bmi(request):
-    h = float(request.GET.get('h')) / 100
-    w = float(request.GET.get('w'))
-    bmi = w / (h ** 2)
-    return render(request,'bmi.html', {
-        'bmi': bmi,
-    })
+from . import views
 
 urlpatterns = [
-    path('hello/', hello),
-    path('bmi/', bmi),
+    path('hello/', views.hello),
+    path('bmi/', views.bmi),
     path('admin/', admin.site.urls),
 ]
