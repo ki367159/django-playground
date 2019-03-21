@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from candidates import views as candidates_views
 
 urlpatterns = [
     path('hello/', views.hello),
     path('bmi/', views.bmi),
+    path('candidates/', candidates_views.index),
+    path('candidates/add/', candidates_views.add),
     path('admin/', admin.site.urls),
 ]
