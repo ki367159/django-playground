@@ -23,5 +23,8 @@ urlpatterns = [
     path('bmi/', views.bmi),
     path('candidates/', candidates_views.index),
     path('candidates/add/', candidates_views.add),
+    path('candidates/<int:pk>/', candidates_views.show),
+    path('candidates/<int:pk>/edit/', candidates_views.edit),
+    path('candidates/<int:pk>/delete/', candidates_views.delete),
     path('admin/', admin.site.urls),
 ]

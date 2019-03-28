@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="row">
+    <div class="col">
+        <a class="btn btn-outline-info float-right" href="/candidates/add/">新增</a>
+        <h1>候選人列表</h1>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">名字</th>
+                    <th scope="col">年齡</th>
+                    <th scope="col">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidate in candidates %}
+                <tr>
+                    <th scope="row">{{ candidate.pk }}</th>
+                    <td><a href="/candidates/{{ candidate.pk }}/">{{ candidate.name }}</a></td>
+                    <td>{{ candidate.age }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" href="/candidates/{{ candidate.pk }}/edit/">編輯</a>
+                        <a class="btn btn-sm btn-danger" href="/candidates/{{ candidate.pk }}/delete/">刪除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

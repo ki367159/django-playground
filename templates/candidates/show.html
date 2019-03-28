@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="row">
+    <div class="col">
+        <h1>#{{ candidate.pk }} {{ candidate.name }}</h1>
+        <hr>
+        <p>名字：{{ candidate.name }}</p>
+        <p>年紀：{{ candidate.age }} 歲</p>
+        <p>政見：{{ candidate.politics | linebreaks }}</p>
+    </div>
+</div>
+{% endblock %}
