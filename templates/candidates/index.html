@@ -3,7 +3,7 @@
 {% block main %}
 <div class="row">
     <div class="col">
-        <a class="btn btn-outline-info float-right" href="/candidates/add/">新增</a>
+        <a class="btn btn-outline-info float-right" href="{% url 'candidates:add' %}">新增</a>
         <h1>候選人列表</h1>
         <hr>
         <table class="table">
@@ -19,11 +19,11 @@
                 {% for candidate in candidates %}
                 <tr>
                     <th scope="row">{{ candidate.pk }}</th>
-                    <td><a href="/candidates/{{ candidate.pk }}/">{{ candidate.name }}</a></td>
+                    <td><a href="{% url 'candidates:show' candidate.pk %}">{{ candidate.name }}</a></td>
                     <td>{{ candidate.age }}</td>
                     <td>
-                        <a class="btn btn-sm btn-warning" href="/candidates/{{ candidate.pk }}/edit/">編輯</a>
-                        <a class="btn btn-sm btn-danger" href="/candidates/{{ candidate.pk }}/delete/">刪除</a>
+                        <a class="btn btn-sm btn-warning" href="{% url 'candidates:edit' candidate.pk %}">編輯</a>
+                        <a class="btn btn-sm btn-danger" href="{% url 'candidates:delete' candidate.pk %}">刪除</a>
                     </td>
                 </tr>
                 {% endfor %}

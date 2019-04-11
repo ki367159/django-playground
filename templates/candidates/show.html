@@ -8,6 +8,11 @@
         <p>名字：{{ candidate.name }}</p>
         <p>年紀：{{ candidate.age }} 歲</p>
         <p>政見：{{ candidate.politics | linebreaks }}</p>
+
+        {% if candidate.image.url is not None %}
+        <hr>
+        <img src="{{ candidate.image.url }}" alt="{{ candidate.name }}">
+        {% endif %}
     </div>
 </div>
 {% endblock %}

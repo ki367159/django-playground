@@ -11,11 +11,11 @@ def index(request):
     })
 
 def add(request):
-    form = CandidateForm(request.POST or None)
+    form = CandidateForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        form.save()
+        candidate = form.save()
         messages.success(request, '新增成功')
-        return redirect('/candidates/')
+        return redirect('candidates:show', pk=candidate.pk)
     return render(request, 'candidates/add.html', {
         'form': form,
     })
@@ -23,11 +23,11 @@ def add(request):
 def edit(request, pk):
     # candidate = Candidate.objects.get(pk=pk)
     candidate = get_object_or_404(Candidate, pk=pk)
-    form = CandidateForm(request.POST or None, instance=candidate)
+    form = CandidateForm(request.POST or None, request.FILES or None, instance=candidate)
     if form.is_valid():
-        form.save()
+        candidate = form.save()
         messages.success(request, '編輯成功')
-        return redirect('/candidates/')
+        return redirect('candidates:show', pk=candidate.pk)
     return render(request, 'candidates/edit.html', {
         'form': form,
     })
@@ -38,7 +38,7 @@ def delete(request, pk):
     if form.is_valid():
         candidate.delete()
         messages.success(request, '刪除成功')
-        return redirect('/candidates/')
+        return redirect('candidates:show', pk=candidate.pk)
     return render(request, 'candidates/delete.html', {
         'form': form,
     })

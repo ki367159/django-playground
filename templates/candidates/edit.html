@@ -1,11 +1,31 @@
 {% extends "layout.html" %}
 
 {% block main %}
-  <div class="row">
-      <div class="col col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-          <h1>編輯候選人</h1>
-          <hr>
-          {% include 'shared/form.html' %}
-      </div>
+<div class="row">
+  <div class="col col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <h1>編輯候選人</h1>
+    <hr>
+    {% include 'shared/form.html' %}
+    <img id="preview" {% if form.instance.image %}src="{{ form.instance.image.url }}">{% endif %}
   </div>
+</div>
+<script>
+  function readURL(input) {
+
+    if (input.filers && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#blah').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $('#id_image').change(function () {
+    readURL(this);
+  });
+</script>
+
 {% endblock %}
