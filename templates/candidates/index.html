@@ -12,6 +12,7 @@
                     <th scope="col">#</th>
                     <th scope="col">名字</th>
                     <th scope="col">年齡</th>
+                    <th scope="col">得票數</th>
                     <th scope="col">操作</th>
                 </tr>
             </thead>
@@ -21,9 +22,11 @@
                     <th scope="row">{{ candidate.pk }}</th>
                     <td><a href="{% url 'candidates:show' candidate.pk %}">{{ candidate.name }}</a></td>
                     <td>{{ candidate.age }}</td>
+                    <td>{{ candidate.vote_set.count }}</td>
                     <td>
                         <a class="btn btn-sm btn-warning" href="{% url 'candidates:edit' candidate.pk %}">編輯</a>
                         <a class="btn btn-sm btn-danger" href="{% url 'candidates:delete' candidate.pk %}">刪除</a>
+                        <a class="btn btn-sm btn-success" href="{% url 'candidates:vote' candidate.pk %}">投票給他</a>
                     </td>
                 </tr>
                 {% endfor %}

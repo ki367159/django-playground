@@ -1,15 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Candidate
-from .forms import CandidateForm
+from .forms import CandidateForm, VoteForm
 from core.forms import DeleteConfirmForm
 
+
+@login_required
 def index(request):
     candidates = Candidate.objects.all()
     return render(request, 'candidates/index.html',{
         'candidates': candidates,
     })
 
+@login_required
 def add(request):
     form = CandidateForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -20,6 +24,7 @@ def add(request):
         'form': form,
     })
 
+@login_required
 def edit(request, pk):
     # candidate = Candidate.objects.get(pk=pk)
     candidate = get_object_or_404(Candidate, pk=pk)
@@ -32,6 +37,8 @@ def edit(request, pk):
         'form': form,
     })
 
+
+@login_required
 def delete(request, pk):
     candidate = get_object_or_404(Candidate, pk=pk)
     form = DeleteConfirmForm(request.POST or None)
@@ -43,8 +50,22 @@ def delete(request, pk):
         'form': form,
     })
 
+
+@login_required
 def show(request, pk):
     candidate = get_object_or_404(Candidate, pk=pk)
     return render(request, 'candidates/show.html', {
         'candidate': candidate,
     })
+
+@login_required
+def vote(request, pk):
+    candidate = get_object_or_404(Candidate, pk=pk)
+    form = VoteForm({'candidate': candidate.pk, 'user': request.user.pk})
+    if form.is_valid():
+        messages.success(request, 'Vote success')
+        form.save()
+    else:
+        messages.warning(request, form.errors)
+
+    return redirect('candidates:index')

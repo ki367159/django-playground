@@ -2,23 +2,41 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Django Playground</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Django Playground</title>
 
-    {# Load the tag library #}
-    {% load bootstrap4 %}
+  {# Load the tag library #}
+  {% load bootstrap4 %}
 
-    {# Load CSS and JavaScript #}
-    {% bootstrap_css %}
-    {% bootstrap_javascript jquery='full' %}
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
 </head>
 
 <body>
+  <div class="row bg-dark p-3">
+  {% if request.user.is_authenticated %}
+  <div class="col text-center">
+    <a class="btn btn-info btn-sm" href="{% url 'logout' %}">Logout</a>
+  </div>
+  {% else %}
+
+  <div class="col text-center">
+    <a class="btn btn-info btn-sm" href="{% url 'login' %}">Login</a>
+  </div>
+  <div class="col text-center">
+      <a class="btn btn-info btn-sm" href="{% url 'register' %}">Register</a>
+    </div>
+  {% endif %}
+  <div class="col text-center">
+    <a class="btn btn-info btn-sm" href="{% url 'candidates:index' %}">Candidate List</a>
+  </div>
+  </div>
   <div class="container my-3">
     {% bootstrap_messages %}
-      {% block main %}{% endblock %}
+    {% block main %}{% endblock %}
   </div>
 </body>
 

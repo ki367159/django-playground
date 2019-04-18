@@ -1,6 +1,7 @@
 import os
 import time
 from django.db import models
+from django.contrib.auth.models import User
 
 def candidate_image_path(instance, filename):
     ext = os.path.splitext(filename)[-1]
@@ -16,3 +17,8 @@ class Candidate(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Vote(models.Model):
+    user = models.OneToOneField(User, models.CASCADE)
+    candidate = models.ForeignKey(Candidate, models.CASCADE)

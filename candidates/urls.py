@@ -24,4 +24,5 @@ urlpatterns = [
     path('<int:pk>/', views.show, name='show'),
     path('<int:pk>/edit/', views.edit, name='edit'),
     path('<int:pk>/delete/', views.delete, name='delete'),
+    path('<int:pk>/vote/', views.vote, name='vote'),
 ]
